@@ -67,6 +67,7 @@ export class NewPageComponent implements OnInit {
 
     if (this.currentHero.id) {
       this.heroesService.updateHero(this.currentHero)
+        // Permite actualizarlo
         .subscribe(hero => {
           this.router.navigate(['/heroes/list'])
           this.showSnackbar(`${hero.superhero} actualizado`)
@@ -74,8 +75,8 @@ export class NewPageComponent implements OnInit {
       return
     }
     this.heroesService.addHero(this.currentHero)
+      // Permite crearlo
       .subscribe(hero => {
-        // this.router.navigate(['/heroes/iedt', hero.id])
         this.router.navigate(['/heroes/list'])
         this.showSnackbar(`${hero.superhero} creado`)
       })
@@ -86,14 +87,17 @@ export class NewPageComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: this.heroForm.value
-
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (!result) result
       this.heroesService.deleteHeroById(this.currentHero.id)
-      this.router.navigate(['/heroes/list'])
+        // Esto hacer que se pueda borrar
+        .subscribe(wasDeleted => {
+          if (wasDeleted)
+            this.router.navigate(['/heroes/list'])
+        })
     })
-
   }
 
   showSnackbar(message: string): void {
