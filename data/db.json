@@ -166,6 +166,15 @@
       "alter_ego": "Norrin Radd",
       "first_appearance": "The Fantastic Four #48",
       "characters": "Norrin Radd"
+    },
+    {
+      "id": "jowlgRa",
+      "superhero": "Campeon de españa",
+      "publisher": "Marvel Comics",
+      "alter_ego": "Vicente del bosque",
+      "first_appearance": "Real Madrid un 9 de septiembre de 1973",
+      "characters": "Si",
+      "alt_img": "https://thinkingheads.com/wp-content/uploads/2017/08/vicente-del-bosque-conferenciante.jpg"
     }
   ]
 }

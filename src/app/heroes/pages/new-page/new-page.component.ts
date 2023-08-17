@@ -35,7 +35,7 @@ export class NewPageComponent {
 
   onSubmit(): void {
 
-    if (this.heroForm.valid) return
+    if (!this.heroForm.valid) return
 
     if (this.currentHero.id) {
       this.heroesService.updateHero(this.currentHero)
