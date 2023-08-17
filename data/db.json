@@ -18,10 +18,11 @@
     {
       "id": "dc-superman",
       "superhero": "Superman",
-      "publisher": "DC Comics",
+      "publisher": "Dc Comics",
       "alter_ego": "Kal-El",
       "first_appearance": "Action Comics #1",
-      "characters": "Kal-El"
+      "characters": "Kal-El",
+      "alt_img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPVLhWFrxh1aMshNFj6kndhr53n7dxgS8Gug&usqp=CAU"
     },
     {
       "id": "dc-flash",
