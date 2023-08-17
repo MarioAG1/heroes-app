@@ -82,7 +82,7 @@ export class NewPageComponent implements OnInit {
       })
   }
 
-  onDeleteHero() {
+  onDeleteHero():void {
     if (!this.currentHero.id) throw Error("Hero is required")
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -90,7 +90,7 @@ export class NewPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result) result
+      if (!result) return
       this.heroesService.deleteHeroById(this.currentHero.id)
         // Esto hacer que se pueda borrar
         .subscribe(wasDeleted => {
