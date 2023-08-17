@@ -12,7 +12,7 @@ import { HeroesService } from '../../services/heroes.service';
 export class NewPageComponent {
 
   public heroForm = new FormGroup({
-    id: new FormControl<string>('""'),
+    id: new FormControl<string>(""),
     superhero: new FormControl<string>("", { nonNullable: true }),
     publisher: new FormControl<Publisher>(Publisher.DCComics),
     alter_ego: new FormControl<string>(""),
@@ -37,7 +37,18 @@ export class NewPageComponent {
 
     if (this.heroForm.valid) return
 
-    // this.heroesService.updateHero
+    if (this.currentHero.id) {
+      this.heroesService.updateHero(this.currentHero)
+        .subscribe(hero =>{
+          //TODO mostrar snackbar
+        })
+        return
+    }
+    this.heroesService.addHero(this.currentHero)
+      .subscribe(hero => {
+          //TODO mostrar snackbar y navegar a /heroes/edit hero id
+
+      })
 
 
   }
