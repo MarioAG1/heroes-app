@@ -4,6 +4,7 @@ import { Publisher, Hero } from '../../interfaces/hero.interface';
 import { HeroesService } from '../../services/heroes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-new-page',
@@ -28,9 +29,11 @@ export class NewPageComponent implements OnInit {
     { id: "Marvel Comics", desc: "Marvel - Comics" }
   ]
 
-  constructor(private heroesService: HeroesService,
+  constructor(
+    private heroesService: HeroesService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if (!this.router.url.includes("edit")) return
@@ -54,21 +57,30 @@ export class NewPageComponent implements OnInit {
 
   onSubmit(): void {
 
-    if (!this.heroForm.valid) return
+    if (!this.heroForm.valid) {
+      this.showSnackbar(`Comprueba que todos los datos estan introducidos`)
+      return
+    }
 
     if (this.currentHero.id) {
       this.heroesService.updateHero(this.currentHero)
         .subscribe(hero => {
-          //TODO mostrar snackbar
+          this.router.navigate(['/heroes/list'])
+          this.showSnackbar(`${hero.superhero} actualizado`)
         })
       return
     }
     this.heroesService.addHero(this.currentHero)
       .subscribe(hero => {
-        //TODO mostrar snackbar y navegar a /heroes/edit hero id
-
+        // this.router.navigate(['/heroes/iedt', hero.id])
+        this.router.navigate(['/heroes/list'])
+        this.showSnackbar(`${hero.superhero} creado`)
       })
+  }
 
-
+  showSnackbar(message: string): void {
+    this.snackBar.open(message, "Vale", {
+      duration: 2500
+    })
   }
 }
