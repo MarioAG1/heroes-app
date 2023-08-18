@@ -29,4 +29,9 @@ export class AuthService {
         catchError(error => of(undefined))
       )
   }
+
+  logout(){
+    this.user = undefined
+    localStorage.clear()
+  }
 }
