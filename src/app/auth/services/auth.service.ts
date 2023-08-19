@@ -43,8 +43,6 @@ export class AuthService {
         map(user => !!user),
         catchError( error => of(false))
       );
-
-
   }
 
   logout() {

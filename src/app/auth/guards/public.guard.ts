@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { ActivatedRouteSnapshot, CanActivateFn, CanMatchFn, Route, Router, RouterStateSnapshot, UrlSegment, } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -13,15 +13,16 @@ const checkAuthStatus = (): boolean | Observable<boolean> => {
     .pipe(
       tap(isAuthenticated => console.log({ 'Authenticated': isAuthenticated })),
       tap((isAuthenticated) => {
-        if (!isAuthenticated) {
-          router.navigate(['./auth/login'])
+        if (isAuthenticated) {
+          router.navigate(['./'])
         }
       }),
+      map(isAuthenticated => !isAuthenticated)
     )
 }
 
 //No hay necesidad de crear una clase, simplemente definiendo una función flecha y exportándola podemos utilizar sus funcionalidades de guard en el app-routing
-export const authActivateGuard: CanActivateFn = (
+export const publicActivateGuard: CanActivateFn = (
   //Hay que tener en cuenta el tipado CanActiveFn
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
@@ -31,7 +32,7 @@ export const authActivateGuard: CanActivateFn = (
   // return true
 }
 
-export const authMatchGuard: CanMatchFn = (
+export const publicMatchGuard: CanMatchFn = (
   //Tipado CanMatchFN
   route: Route,
   segments: UrlSegment[]
